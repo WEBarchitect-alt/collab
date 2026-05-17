@@ -1,6 +1,13 @@
 require('dotenv').config();
+// const cors = require('cors');
+
 
 const app = require('./src/app');
+
+// app.use(cors({
+//     credentials: true,
+//     origin: 'http://localhost:5173',
+// }));
 
 const connectdb = require('./src/config/db');
 

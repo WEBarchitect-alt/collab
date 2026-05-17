@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Menu from "./pages/Menu";
+import CreateProduct from "./pages/CreateProduct";
 
 function App() {
   const location = useLocation();
@@ -25,6 +27,14 @@ function App() {
               </CinematicBlurTransition>
             }
           />
+          <Route
+            path="/Menu"
+            element={
+              <CinematicBlurTransition>
+                <Menu />
+              </CinematicBlurTransition>
+            }
+          />
 
           <Route
             path="/register"
@@ -40,6 +50,15 @@ function App() {
             element={
               <CinematicBlurTransition>
                 <Login />
+              </CinematicBlurTransition>
+            }
+          />
+
+          <Route
+            path="/create-product"
+            element={
+              <CinematicBlurTransition>
+                <CreateProduct />
               </CinematicBlurTransition>
             }
           />

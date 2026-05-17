@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -9,17 +13,23 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
 
+  // Handle Input Change
   const handleChange = (e) => {
+
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+
   };
 
+  // Handle Login
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
+
       setLoading(true);
 
       const response = await axios.post(
@@ -35,6 +45,12 @@ const Login = () => {
 
       console.log(response.data);
 
+      // Save User In LocalStorage
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
       alert(response.data.message);
 
       // Reset Form
@@ -43,25 +59,57 @@ const Login = () => {
         password: "",
       });
 
+      // Redirect
+      navigate("/menu");
+
     } catch (error) {
+
       console.log(error);
 
       if (error.response) {
+
         alert(error.response.data.message);
+
       } else {
+
         alert("Something went wrong");
+
       }
 
     } finally {
+
       setLoading(false);
+
     }
+
   };
 
   return (
     <main className="min-h-screen bg-black flex justify-center items-center px-4">
-      <div className="w-full max-w-md p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
 
-        <h1 className="text-4xl font-bold text-center text-white mb-8">
+      <div
+        className="
+          w-full
+          max-w-md
+          p-8
+          rounded-3xl
+          border
+          border-white/10
+          bg-white/5
+          backdrop-blur-xl
+          shadow-2xl
+        "
+      >
+
+        <h1
+          className="
+            text-4xl
+            font-bold
+            text-center
+            text-white
+            mb-8
+          "
+        >
           Login
         </h1>
 
@@ -69,6 +117,7 @@ const Login = () => {
           onSubmit={handleSubmit}
           className="flex flex-col gap-5"
         >
+
           {/* Email */}
           <input
             type="email"
@@ -130,10 +179,17 @@ const Login = () => {
               duration-300
             "
           >
-            {loading ? "Logging in..." : "Login"}
+            {
+              loading
+                ? "Logging in..."
+                : "Login"
+            }
           </button>
+
         </form>
+
       </div>
+
     </main>
   );
 };

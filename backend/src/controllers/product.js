@@ -37,6 +37,14 @@ async function addProduct(req,res){
     })
 }
 
+async function getProducts(req,res){
+    const products = await productmodel.find();
+    return res.status(200).json({
+        "message": "product fetched successfully",
+        products: products,
+    })
+}
 
 
-module.exports = { addProduct };
+
+module.exports = { addProduct, getProducts };
